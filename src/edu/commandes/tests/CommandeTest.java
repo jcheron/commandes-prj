@@ -1,10 +1,14 @@
-package edu.commandes.models;
+package edu.commandes.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import edu.commandes.models.Client;
+import edu.commandes.models.Commande;
+import edu.commandes.models.Produit;
 
 class CommandeTest {
 	private Commande laCommande;

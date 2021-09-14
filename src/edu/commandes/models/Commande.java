@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-class Commande {
+public class Commande {
 	private Date date;
 	private Client leClient;
 	private List<DetailCommande> lesDetails;
