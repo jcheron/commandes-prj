@@ -24,6 +24,17 @@ class CommandeTest {
 	}
 
 	@Test
+	void testAddProduit() {
+		assertEquals(0, laCommande.getMontant(), 0);
+		laCommande.addProduit(new Produit("Pain", 2.0f), 2);
+		assertEquals(2, laCommande.getQuantiteProduits());
+
+		laCommande.addProduit(new Produit("Pain", 2.0f), 2);
+		assertEquals(4, laCommande.getQuantiteProduits());
+		assertEquals(1, laCommande.getLesDetails().size());
+	}
+
+	@Test
 	void testGetMontant() {
 		assertEquals(0, laCommande.getMontant(), 0);
 		laCommande.addProduit(new Produit("Pain", 2.0f), 2);

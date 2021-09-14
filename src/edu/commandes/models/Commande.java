@@ -1,22 +1,27 @@
 package edu.commandes.models;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Commande {
 	private Date date;
 	private Client leClient;
-	private List<DetailCommande> lesDetails;
+	private Map<String, DetailCommande> lesDetails;
 
 	public Commande(Client client) {
 		this.leClient = client;
-		lesDetails = new ArrayList<>();
+		lesDetails = new HashMap<>();
 		date = new Date();
 	}
 
 	public void addProduit(Produit produit, int quantite) {
-		this.lesDetails.add(new DetailCommande(produit, quantite));
+		if (lesDetails.containsKey(produit.getRef())) {
+			incProduit(produit.getRef(), quantite);
+		} else {
+			this.lesDetails.put(produit.getRef(), new DetailCommande(produit, quantite));
+		}
 	}
 
 	public void incProduit(String ref, int quantite) {
@@ -49,5 +54,9 @@ public class Commande {
 		 * this.lesDetails.remove(ligneDetail); } } return false;
 		 */
 		return lesDetails.remove(new DetailCommande(new Produit(ref, 0), 0));
+	}
+
+	public List<DetailCommande> getLesDetails() {
+		return lesDetails;
 	}
 }
