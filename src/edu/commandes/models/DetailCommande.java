@@ -24,4 +24,24 @@ public class DetailCommande {
 	public void setLeProduit(Produit leProduit) {
 		this.leProduit = leProduit;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof DetailCommande)) {
+			return false;
+		}
+		return ((DetailCommande) obj).getLeProduit().equals(leProduit);
+	}
+
+	public static DetailCommande getRef(String ref) {
+		return new DetailCommande(new Produit(ref, 0), 0);
+	}
+
+	public void incQuantite(int quantite) {
+		this.quantite += quantite;
+
+	}
 }

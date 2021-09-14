@@ -55,4 +55,19 @@ class CommandeTest {
 
 	}
 
+	@Test
+	void testIncProduit() {
+		assertEquals(0, laCommande.getQuantiteProduits());
+		laCommande.addProduit(new Produit("Pain", 2.0f), 2);
+		assertEquals(2, laCommande.getQuantiteProduits());
+		laCommande.incProduit("Pain", 2);
+		assertEquals(4, laCommande.getQuantiteProduits());
+
+		laCommande.incProduit("Pain", -1);
+		assertEquals(3, laCommande.getQuantiteProduits());
+
+		laCommande.incProduit("Painx", 100);
+		assertEquals(3, laCommande.getQuantiteProduits());
+	}
+
 }
