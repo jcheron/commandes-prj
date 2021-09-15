@@ -2,7 +2,6 @@ package edu.commandes.models;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Commande {
@@ -25,24 +24,26 @@ public class Commande {
 	}
 
 	public void incProduit(String ref, int quantite) {
-		int index = lesDetails.indexOf(DetailCommande.getRef(ref));
-		if (index != -1) {
-			lesDetails.get(index).incQuantite(quantite);
+		if (lesDetails.containsKey(ref)) {
+			lesDetails.get(ref).incQuantite(quantite);
 		}
 	}
 
 	public float getMontant() {
 		float montant = 0;
-		for (DetailCommande ligneDetail : this.lesDetails) {
-			montant += ligneDetail.getQuantite() * ligneDetail.getLeProduit().getPu();
+		for (Map.Entry<String, DetailCommande> entry : lesDetails.entrySet()) {
+			DetailCommande dt = entry.getValue();
+			montant += dt.getQuantite() * dt.getLeProduit().getPu();
 		}
+		;
 		return montant;
 	}
 
 	public int getQuantiteProduits() {
 		int quantite = 0;
-		for (DetailCommande ligneDetail : this.lesDetails) {
-			quantite += ligneDetail.getQuantite();
+		for (Map.Entry<String, DetailCommande> entry : lesDetails.entrySet()) {
+			DetailCommande dt = entry.getValue();
+			quantite += dt.getQuantite();
 		}
 		return quantite;
 	}
@@ -53,10 +54,10 @@ public class Commande {
 		 * (ref.equals(ligneDetail.getLeProduit().getRef())) { return
 		 * this.lesDetails.remove(ligneDetail); } } return false;
 		 */
-		return lesDetails.remove(new DetailCommande(new Produit(ref, 0), 0));
+		return lesDetails.remove(ref) != null;
 	}
 
-	public List<DetailCommande> getLesDetails() {
+	public Map<String, DetailCommande> getLesDetails() {
 		return lesDetails;
 	}
 }
